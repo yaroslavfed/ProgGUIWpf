@@ -1,6 +1,16 @@
-﻿namespace ProgGUIWpf.ViewModels;
+﻿using System;
+using ProgGUIWpf.ViewModels.Base;
 
-public class MainWindowViewModel
+namespace ProgGUIWpf.ViewModels;
+
+internal class MainWindowViewModel : ViewModelBase
 {
+    private string _title = "Главное окно";
     
+    /// <summary>Заголовок окна</summary> 
+    public string Title
+    {
+        get => _title;
+        set => Set(ref _title, value);
+    }
 }

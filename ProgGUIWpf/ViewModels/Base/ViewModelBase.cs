@@ -22,6 +22,8 @@ internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
         return true;
     }
 
+    
+    // TODO: Возможно деструктор не нужен, но хабр говорит обратное))
     ~ViewModelBase()
     {
         Dispose(false);
