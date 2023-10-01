@@ -6,41 +6,53 @@ namespace ProgGUIWpf.ViewModels.Base;
 
 internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
+    #region Fields
 
-    protected virtual void InvokePropertyChanged([CallerMemberName] string PropertyName = null)
+    public event PropertyChangedEventHandler? PropertyChanged;
+    
+    // TODO: Возможно деструктор тут не нужен, всё таки приложение не подразумевает наличие обработчика нескольких окон
+    private bool _disposed;
+    
+    #endregion
+
+    #region Methods
+
+    protected virtual void InvokePropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+    protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
         if(Equals(field, value))
             return false;
         field = value;
-        InvokePropertyChanged(PropertyName);
+        InvokePropertyChanged(propertyName);
         return true;
     }
 
-    
-    // TODO: Возможно деструктор не нужен, но хабр говорит обратное))
-    ~ViewModelBase()
-    {
-        Dispose(false);
-    }
-    
     public void Dispose()
     {
         Dispose(true);
     }
 
-    private bool _Disposed;
-    
-    // Освобождение управляемых ресурсов
-    protected virtual void Dispose(bool Disposing)
+    protected virtual void Dispose(bool disposing)
     {
-        if(!Disposing || _Disposed)
+        if(!disposing || _disposed)
             return;
-        _Disposed = true;
+        _disposed = true;
+        
+        // Освобождение управляемых ресурсов
     }
+
+    #endregion
+
+    #region Destructor
+
+    ~ViewModelBase()
+    {
+        Dispose(false);
+    }
+
+    #endregion    
 }
