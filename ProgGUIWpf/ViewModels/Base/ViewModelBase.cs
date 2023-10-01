@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace ProgGUIWpf.ViewModels.Base;
 
-internal abstract class ViewModelBase : INotifyPropertyChanged
+internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -19,5 +20,25 @@ internal abstract class ViewModelBase : INotifyPropertyChanged
         field = value;
         InvokePropertyChanged(PropertyName);
         return true;
+    }
+
+    ~ViewModelBase()
+    {
+        Dispose(false);
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+    }
+
+    private bool _Disposed;
+    
+    // Освобождение управляемых ресурсов
+    protected virtual void Dispose(bool Disposing)
+    {
+        if(!Disposing || _Disposed)
+            return;
+        _Disposed = true;
     }
 }
