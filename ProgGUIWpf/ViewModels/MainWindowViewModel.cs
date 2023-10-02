@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
+using Common.Base;
 using ProgGUIWpf.Infrastructures.Commands;
-using ProgGUIWpf.ViewModels.Base;
 
 namespace ProgGUIWpf.ViewModels;
 
@@ -30,7 +29,7 @@ internal class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         CloseApplicationCommand =
-            new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
     }
 
     #endregion
@@ -43,13 +42,13 @@ internal class MainWindowViewModel : ViewModelBase
 
     #region Methods
 
-        #region CloseApplicationCommandExecute
+    #region CloseApplicationCommandExecute
 
     private void OnCloseApplicationCommandExecuted(object parameter) => Application.Current.Shutdown();
 
     private bool CanCloseApplicationCommandExecute(object parameter) => true;
-    
-        #endregion
+
+    #endregion
 
     #endregion
 }
