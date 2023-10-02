@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ProgGUIWpf.ViewModels.Base;
+namespace Common.Base;
 
-internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 {
     #region Fields
 

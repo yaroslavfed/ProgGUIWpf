@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace ProgGUIWpf.Infrastructures.Commands.Base;
+namespace Common.Base;
 
-internal abstract class Command : ICommand
+public abstract class Command : ICommand
 {
     public event EventHandler? CanExecuteChanged
     {

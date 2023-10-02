@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgGUIWpf", "ProgGUIWpf\ProgGUIWpf.csproj", "{94FFA07A-FF80-4456-ACB8-778CB26E6123}"
+	ProjectSection(ProjectDependencies) = postProject
+		{533CD0B4-A6C6-4C51-BA27-A96DE130F0F5} = {533CD0B4-A6C6-4C51-BA27-A96DE130F0F5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Base", "Common.Base\Common.Base.csproj", "{533CD0B4-A6C6-4C51-BA27-A96DE130F0F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{94FFA07A-FF80-4456-ACB8-778CB26E6123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94FFA07A-FF80-4456-ACB8-778CB26E6123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94FFA07A-FF80-4456-ACB8-778CB26E6123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{533CD0B4-A6C6-4C51-BA27-A96DE130F0F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{533CD0B4-A6C6-4C51-BA27-A96DE130F0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{533CD0B4-A6C6-4C51-BA27-A96DE130F0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{533CD0B4-A6C6-4C51-BA27-A96DE130F0F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

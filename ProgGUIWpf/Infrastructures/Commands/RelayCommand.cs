@@ -1,14 +1,14 @@
 ﻿using System;
-using ProgGUIWpf.Infrastructures.Commands.Base;
+using Common.Base;
 
 namespace ProgGUIWpf.Infrastructures.Commands;
 
-internal class LambdaCommand : Command
+internal class RelayCommand : Command
 {
     private readonly Action<object> _execute;
     private readonly Func<object, bool> _canExecute;
 
-    public LambdaCommand(Action<object>Execute, Func<object, bool> CanExecute = null)
+    public RelayCommand(Action<object>Execute, Func<object, bool> CanExecute = null)
     {
         _execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
         _canExecute = CanExecute;
