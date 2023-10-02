@@ -10,15 +10,15 @@ internal class MainWindowViewModel : ViewModelBase
     private string _title = "Главное окно";
 
     #endregion
-    
+
     #region Methods
-    
+
     /// <summary>Заголовок окна</summary> 
     public string Title
     {
         get => _title;
         set => Set(ref _title, value);
     }
-    
+
     #endregion
 }

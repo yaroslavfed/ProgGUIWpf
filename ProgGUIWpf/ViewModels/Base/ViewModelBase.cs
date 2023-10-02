@@ -9,10 +9,10 @@ internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     #region Fields
 
     public event PropertyChangedEventHandler? PropertyChanged;
-    
+
     // TODO: Возможно деструктор тут не нужен, всё таки приложение не подразумевает наличие обработчика нескольких окон
     private bool _disposed;
-    
+
     #endregion
 
     #region Methods
@@ -24,7 +24,7 @@ internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 
     protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
-        if(Equals(field, value))
+        if (Equals(field, value))
             return false;
         field = value;
         InvokePropertyChanged(propertyName);
@@ -38,10 +38,10 @@ internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if(!disposing || _disposed)
+        if (!disposing || _disposed)
             return;
         _disposed = true;
-        
+
         // Освобождение управляемых ресурсов
     }
 
@@ -54,5 +54,5 @@ internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
         Dispose(false);
     }
 
-    #endregion    
+    #endregion
 }
