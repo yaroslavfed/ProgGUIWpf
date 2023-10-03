@@ -34,14 +34,25 @@
                     </Grid.ColumnDefinitions>
                     <!-- TODO: перенести в отдельный юзер контрол -->
                     <Grid Grid.Column="0">
-                        <GroupBox Header="Points" Margin="5">
-                            <DataGrid ItemsSource=""/>
+                        <GroupBox Margin="5">
+                            <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}" AutoGenerateColumns="False"
+                                      IsReadOnly="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="X" Binding="{Binding PointX}" />
+                                    <DataGridTextColumn Header="Y" Binding="{Binding PointY}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <GroupBox.Header>
+                                <TextBlock
+                                    Text="{Binding SelectedFile.Namespace, StringFormat='Points from file - {0}', FallbackValue='Points'}"
+                                    Foreground="White" />
+                            </GroupBox.Header>
                         </GroupBox>
                     </Grid>
                     <!-- TODO: перенести в отдельный юзер контрол -->
                     <Grid Grid.Column="1">
                         <GroupBox Header="Files" Margin="5">
-                            <ListBox ItemsSource="{Binding DataLocations}">
+                            <ListBox ItemsSource="{Binding DataLocations}" SelectedItem="{Binding SelectedFile}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <!-- TODO: перенести в отдельный юзер контрол -->

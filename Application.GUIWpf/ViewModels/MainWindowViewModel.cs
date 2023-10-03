@@ -15,11 +15,19 @@ internal class MainWindowViewModel : ViewModelBase
 
     private string _title = "Главное окно";
 
+    private DataLocation _selectedFile;
+
     #endregion
 
     #region Public Fields
 
     public ObservableCollection<DataLocation> DataLocations { get; }
+
+    public DataLocation SelectedFile
+    {
+        get => _selectedFile;
+        set => Set(ref _selectedFile, value);
+    }
 
     #endregion
     
@@ -48,10 +56,11 @@ internal class MainWindowViewModel : ViewModelBase
             new Command(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
 
         // TODO: убрать сидирование, заменить на получение его из файла
+        var indexSeedPoint = 1;
         var points = Enumerable.Range(1, 3).Select(i => new Location
         {
-            PointX = i,
-            PointY = Math.Pow(i, 2)
+            PointX = indexSeedPoint,
+            PointY = Math.Pow(indexSeedPoint++, 2)
         });
         
         var dataTemplate = Enumerable.Range(1, 2).Select(i => new DataLocation
