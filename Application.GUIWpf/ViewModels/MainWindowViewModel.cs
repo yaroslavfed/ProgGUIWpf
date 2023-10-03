@@ -11,7 +11,7 @@ namespace Application.GUIWpf.ViewModels;
 
 internal class MainWindowViewModel : ViewModelBase
 {
-    #region Private Fields
+    #region Private fields
 
     private string _title = "Главное окно";
 
@@ -19,7 +19,7 @@ internal class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    #region Public Fields
+    #region Public fields
 
     public ObservableCollection<DataLocation> DataLocations { get; }
 
@@ -56,12 +56,16 @@ internal class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
+        #region Commands initialization
+
         CloseApplicationCommand =
             new Command(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
 
         CreateNewFileCommand = new Command(OnCreateNewFileCommandExecuted, CanCreateNewFileCommandExecute);
 
         DeleteNewFileCommand = new Command(OnDeleteNewFileCommandExecuted, CanDeleteNewFileCommandExecute);
+
+        #endregion
 
         // TODO: убрать сидирование, заменить на получение его из файла
         var indexSeedPoint = 1;
@@ -92,6 +96,7 @@ internal class MainWindowViewModel : ViewModelBase
 
     #endregion
 
+    // TODO: переделать на работу с файловой системой
     #region CreateNewFileCommandExecute
 
     private void OnCreateNewFileCommandExecuted(object parameter)

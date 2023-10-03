@@ -25,8 +25,8 @@
             <TextBlock Text="Status" />
         </StatusBar>
         <TabControl>
+            <!-- TODO: перенести в отдельный юзер контрол -->
             <TabItem Header="Вкладка 1">
-                <!-- TODO: перенести в отдельный юзер контрол -->
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -41,14 +41,14 @@
                                     <DataGridTemplateColumn Header="X">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointX}"/>
+                                                <TextBox Text="{Binding PointX}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTemplateColumn Header="Y">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointY}"/>
+                                                <TextBox Text="{Binding PointY}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -66,8 +66,10 @@
                         <GroupBox Header="Files" Margin="5">
                             <DockPanel>
                                 <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                    <Button Content="Create file" Command="{Binding CreateNewFileCommand}" Margin="0,0,3,0" />
-                                    <Button Content="Delete file" Command="{Binding DeleteNewFileCommand}" CommandParameter="{Binding SelectedFile}" Margin="3,0,0,0" />
+                                    <Button Content="Create file" Command="{Binding CreateNewFileCommand}"
+                                            Margin="0,0,3,0" />
+                                    <Button Content="Delete file" Command="{Binding DeleteNewFileCommand}"
+                                            CommandParameter="{Binding SelectedFile}" Margin="3,0,0,0" />
                                 </UniformGrid>
                                 <ListBox ItemsSource="{Binding DataLocations}" SelectedItem="{Binding SelectedFile}">
                                     <ListBox.ItemTemplate>
@@ -75,7 +77,10 @@
                                             <!-- TODO: перенести в отдельный юзер контрол -->
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Namespace}" />
-                                                <TextBlock Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}" Margin="5,0,0,0"></TextBlock>
+                                                <TextBlock
+                                                    Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}"
+                                                    Margin="5,0,0,0">
+                                                </TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
@@ -85,6 +90,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
+            <!-- TODO: возможно оно и не понадобится, пока в идее информационная страничка, но в неё переходить можно и из меню-->
             <TabItem Header="Вкладка 2">
                 <TextBlock Text="Content of tab 2" />
             </TabItem>
