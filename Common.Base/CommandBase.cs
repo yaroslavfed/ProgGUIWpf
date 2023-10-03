@@ -2,7 +2,7 @@
 
 namespace Common.Base;
 
-public abstract class Command : ICommand
+public abstract class CommandBase : ICommand
 {
     public event EventHandler? CanExecuteChanged
     {
