@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Application.GUIWpf.Models"
         xmlns:vm="clr-namespace:Application.GUIWpf.ViewModels"
+        xmlns:models="clr-namespace:Application.GUIWpf.Models"
         xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
         Height="450" Width="800"
@@ -36,10 +36,22 @@
                     <Grid Grid.Column="0">
                         <GroupBox Margin="5">
                             <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}" AutoGenerateColumns="False"
-                                      IsReadOnly="False">
+                                      CanUserAddRows="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="X" Binding="{Binding PointX}" />
-                                    <DataGridTextColumn Header="Y" Binding="{Binding PointY}" />
+                                    <DataGridTemplateColumn Header="X">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="models:Location">
+                                                <TextBox Text="{Binding PointX}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Y">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="models:Location">
+                                                <TextBox Text="{Binding PointY}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <GroupBox.Header>
@@ -52,14 +64,23 @@
                     <!-- TODO: перенести в отдельный юзер контрол -->
                     <Grid Grid.Column="1">
                         <GroupBox Header="Files" Margin="5">
-                            <ListBox ItemsSource="{Binding DataLocations}" SelectedItem="{Binding SelectedFile}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <!-- TODO: перенести в отдельный юзер контрол -->
-                                        <TextBlock Text="{Binding Namespace}" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ListBox>
+                            <DockPanel>
+                                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
+                                    <Button Content="Create file" Command="{Binding CreateNewFileCommand}" Margin="0,0,3,0" />
+                                    <Button Content="Delete file" Command="{Binding DeleteNewFileCommand}" CommandParameter="{Binding SelectedFile}" Margin="3,0,0,0" />
+                                </UniformGrid>
+                                <ListBox ItemsSource="{Binding DataLocations}" SelectedItem="{Binding SelectedFile}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate DataType="models:DataLocation">
+                                            <!-- TODO: перенести в отдельный юзер контрол -->
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Namespace}" />
+                                                <TextBlock Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}" Margin="5,0,0,0"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </DockPanel>
                         </GroupBox>
                     </Grid>
                 </Grid>
