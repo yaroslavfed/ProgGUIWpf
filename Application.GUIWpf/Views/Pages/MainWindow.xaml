@@ -7,93 +7,63 @@
         xmlns:models="clr-namespace:Application.GUIWpf.Models"
         xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        Height="450" Width="800"
-        Title="{Binding Title}">
+        Height="1024" Width="1440"
+        Title="{Binding Title}"
+        WindowState="Maximized"
+        WindowStyle="None">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Помощь">
-                <MenuItem Header="О программе"></MenuItem>
-            </MenuItem>
-        </Menu>
-        <StatusBar DockPanel.Dock="Bottom">
-            <TextBlock Text="Status" />
-        </StatusBar>
-        <TabControl>
-            <!-- TODO: перенести в отдельный юзер контрол -->
-            <TabItem Header="Вкладка 1">
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <!-- TODO: перенести в отдельный юзер контрол -->
-                    <Grid Grid.Column="0">
-                        <GroupBox Margin="5">
-                            <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}" AutoGenerateColumns="False"
-                                      CanUserAddRows="False">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="X">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointX}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Y">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointY}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <GroupBox.Header>
-                                <TextBlock
-                                    Text="{Binding SelectedFile.Namespace, StringFormat='Points from file - {0}', FallbackValue='Points'}"
-                                    Foreground="White" />
-                            </GroupBox.Header>
-                        </GroupBox>
+    <Window.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#710065" Offset="0" />
+            <GradientStop Color="#0F006D" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Background>
+    <Border Margin="30" Padding="90,0,90,90" Background="{StaticResource BorderWhiteOpacity}"
+            Style="{StaticResource BorderRoundedTemplate}">
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,40,0,30">
+                <Button Style="{StaticResource SystemButtonClose}" Width="25" Height="25"
+                        Margin="0,0,6,0" Command="{Binding CloseApplicationCommand}" />
+                <Button Style="{StaticResource SystemButtonReduce}" Width="25" Height="25" Margin="6,0" />
+                <Button Style="{StaticResource SystemButtonWrap}" Width="25" Height="25" Margin="6,0" />
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Border Grid.Column="0" Grid.RowSpan="3" Margin="0,0,40,0" Padding="60"
+                        Background="{StaticResource BorderWhiteOpacity}"
+                        Style="{StaticResource BorderCornerRadius}">
+                    <Grid>
                     </Grid>
-                    <!-- TODO: перенести в отдельный юзер контрол -->
-                    <Grid Grid.Column="1">
-                        <GroupBox Header="Files" Margin="5">
-                            <DockPanel>
-                                <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                    <Button Content="Create file" Command="{Binding CreateNewFileCommand}"
-                                            Margin="0,0,3,0" />
-                                    <Button Content="Delete file" Command="{Binding DeleteNewFileCommand}"
-                                            CommandParameter="{Binding SelectedFile}" Margin="3,0,0,0" />
-                                </UniformGrid>
-                                <ListBox ItemsSource="{Binding DataLocations}" SelectedItem="{Binding SelectedFile}">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate DataType="models:DataLocation">
-                                            <!-- TODO: перенести в отдельный юзер контрол -->
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Namespace}" />
-                                                <TextBlock
-                                                    Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}"
-                                                    Margin="5,0,0,0">
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </DockPanel>
-                        </GroupBox>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="0" Margin="40,0,0,25" Padding="60"
+                        Background="{StaticResource BorderWhiteOpacity}"
+                        Style="{StaticResource BorderCornerRadius}">
+                    <Grid>
                     </Grid>
-                </Grid>
-            </TabItem>
-            <!-- TODO: возможно оно и не понадобится, пока в идее информационная страничка, но в неё переходить можно и из меню-->
-            <TabItem Header="Вкладка 2">
-                <TextBlock Text="Content of tab 2" />
-            </TabItem>
-        </TabControl>
-    </DockPanel>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="1" Margin="40,25,0,0" Padding="60"
+                        Background="{StaticResource BorderWhiteOpacity}"
+                        Style="{StaticResource BorderCornerRadius}">
+                    <Grid>
+                    </Grid>
+                </Border>
+                <StackPanel Grid.Column="1" Grid.Row="2" Margin="40,25,0,0" Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <Button Margin="10,0,10,0" Width="170" Height="65" Style="{StaticResource MainButton}" />
+                    <Button Margin="10,0,10,0" Width="170" Height="65" Style="{StaticResource MainButton}" />
+                    <Button Margin="10,0,10,0" Width="170" Height="65" Style="{StaticResource MainButton}" />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Border>
 </Window>
