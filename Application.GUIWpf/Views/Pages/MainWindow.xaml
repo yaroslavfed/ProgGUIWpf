@@ -9,8 +9,9 @@
         mc:Ignorable="d"
         Height="1024" Width="1440"
         Title="{Binding Title}"
-        WindowState="Maximized"
-        WindowStyle="None">
+        WindowState="Normal"
+        WindowStyle="None"
+        MouseLeftButtonDown="window_MouseLeftButtonDown">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
@@ -37,9 +38,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Border Grid.Column="0" Grid.RowSpan="3" Margin="0,0,40,0" Padding="60"
+                <Border Grid.Column="0" Grid.RowSpan="2" Margin="0,0,40,0" Padding="60"
                         Background="{StaticResource BorderWhiteOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
                     <Grid>
@@ -49,20 +49,67 @@
                         Background="{StaticResource BorderWhiteOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
                     <Grid>
+                        <GroupBox>
+                            <GroupBox.Header>
+                                <TextBlock
+                                    Text="{Binding SelectedFile.Namespace, StringFormat='Points from file - {0}', FallbackValue='Points'}"
+                                    DockPanel.Dock="Top" />
+                            </GroupBox.Header>
+                            <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="X">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="models:Location">
+                                                <TextBox Text="{Binding PointX}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Y">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="models:Location">
+                                                <TextBox Text="{Binding PointY}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
                     </Grid>
                 </Border>
-                <Border Grid.Column="1" Grid.Row="1" Margin="40,25,0,0" Padding="60"
+                <Border Grid.Column="1" Grid.Row="1" Margin="40,20,0,10" Padding="60"
                         Background="{StaticResource BorderWhiteOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
-                    <Grid>
-                    </Grid>
+                    <GroupBox Header="Files">
+                        <DockPanel>
+                            <UniformGrid DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                                <Button Content="Добавить" Margin="0,10,10,0" Width="190" Height="60"
+                                        Style="{StaticResource MainButton}"
+                                        Command="{Binding CreateNewFileCommand}" />
+                                <Button Content="Удалить" Margin="10,10,0,0" Width="190" Height="60"
+                                        Style="{StaticResource MainButton}"
+                                        Command="{Binding DeleteNewFileCommand}"
+                                        CommandParameter="{Binding SelectedFile}" />
+                            </UniformGrid>
+                            <ListBox ItemsSource="{Binding DataLocations}"
+                                     SelectedItem="{Binding SelectedFile}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="models:DataLocation">
+                                        <!-- TODO: перенести в отдельный юзер контрол -->
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Namespace}" />
+                                            <TextBlock
+                                                Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}"
+                                                Margin="5,0,0,0">
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+                    </GroupBox>
                 </Border>
-                <StackPanel Grid.Column="1" Grid.Row="2" Margin="40,25,0,0" Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-                    <Button Margin="10,0,10,0" Width="170" Height="65" Style="{StaticResource MainButton}" />
-                    <Button Margin="10,0,10,0" Width="170" Height="65" Style="{StaticResource MainButton}" />
-                    <Button Margin="10,0,10,0" Width="170" Height="65" Style="{StaticResource MainButton}" />
-                </StackPanel>
             </Grid>
         </DockPanel>
     </Border>

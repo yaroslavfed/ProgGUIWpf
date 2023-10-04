@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Application.GUIWpf.Views.Pages
 {
@@ -14,18 +15,23 @@ namespace Application.GUIWpf.Views.Pages
             InitializeComponent();
         }
         
-        public void RemoveText(object sender, EventArgs e)
+        private void RemoveText(object sender, EventArgs e)
         {
             TextBox instance = (TextBox)sender;
             if (instance.Text == instance.Tag.ToString())
                 instance.Text = "";
         }
 
-        public void AddText(object sender, EventArgs e)
+        private void AddText(object sender, EventArgs e)
         {
             TextBox instance = (TextBox)sender;
             if (string.IsNullOrWhiteSpace(instance.Text))
                 instance.Text = instance.Tag.ToString();
+        }
+        
+        private void window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
