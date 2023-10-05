@@ -5,21 +5,22 @@
         <Setter Property="CornerRadius" Value="60" />
     </Style>
 
-    <SolidColorBrush x:Key="BorderWhiteOpacity" Color="White" Opacity="0.1" />
+    <SolidColorBrush x:Key="BorderWhiteOpacity" Color="White" Opacity="0.2" />
+    <SolidColorBrush x:Key="BorderBlackOpacity" Color="Black" Opacity="0.22" />
 
     <DropShadowEffect x:Key="ShadowEffect" BlurRadius="0" ShadowDepth="0" />
 
     <Style TargetType="Border" x:Key="BorderCornerRadius">
-        <Setter Property="CornerRadius" Value="60" />
+        <Setter Property="CornerRadius" Value="65" />
     </Style>
 
-    <Style TargetType="Button" x:Key="MainButton">
+    <Style TargetType="Button" x:Key="CreateFileButton">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="25"
-                            Background="#8960FF"
-                            Opacity="0.52">
+                    <Border CornerRadius="22"
+                            Background="#5944AD"
+                            Opacity="0.50">
 
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
@@ -28,7 +29,26 @@
             </Setter.Value>
         </Setter>
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    
+    <Style TargetType="Button" x:Key="DeleteFileButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="22"
+                            Background="#35853D"
+                            Opacity="0.50">
+
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="Foreground" Value="White" />
     </Style>
     

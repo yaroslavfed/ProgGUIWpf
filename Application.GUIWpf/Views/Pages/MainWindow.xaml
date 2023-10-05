@@ -11,24 +11,25 @@
         Title="{Binding Title}"
         WindowState="Normal"
         WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
         MouseLeftButtonDown="window_MouseLeftButtonDown">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
     <Window.Background>
         <LinearGradientBrush>
-            <GradientStop Color="#710065" Offset="0" />
-            <GradientStop Color="#0F006D" Offset="1" />
+            <GradientStop Color="#107300" Offset="0" />
+            <GradientStop Color="#2C0073" Offset="0.73" />
         </LinearGradientBrush>
     </Window.Background>
-    <Border Margin="30" Padding="90,0,90,90" Background="{StaticResource BorderWhiteOpacity}"
+    <Border Margin="30" Padding="100,10,100,75" Background="{StaticResource BorderWhiteOpacity}"
             Style="{StaticResource BorderRoundedTemplate}">
         <DockPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,40,0,30">
-                <Button Style="{StaticResource SystemButtonClose}" Width="25" Height="25"
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="-35,30,0,30">
+                <Button Style="{StaticResource SystemButtonClose}" Width="30" Height="30"
                         Margin="0,0,6,0" Command="{Binding CloseApplicationCommand}" />
-                <Button Style="{StaticResource SystemButtonReduce}" Width="25" Height="25" Margin="6,0" />
-                <Button Style="{StaticResource SystemButtonWrap}" Width="25" Height="25" Margin="6,0" />
+                <Button Style="{StaticResource SystemButtonReduce}" Width="30" Height="30" Margin="6,0" />
+                <Button Style="{StaticResource SystemButtonWrap}" Width="30" Height="30" Margin="6,0" />
             </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -40,60 +41,64 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Border Grid.Column="0" Grid.RowSpan="2" Margin="0,0,40,0" Padding="60"
-                        Background="{StaticResource BorderWhiteOpacity}"
+                        Background="{StaticResource BorderBlackOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
                     <Grid>
                     </Grid>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="0" Margin="40,0,0,25" Padding="60"
-                        Background="{StaticResource BorderWhiteOpacity}"
+                        Background="{StaticResource BorderBlackOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
-                    <Grid>
-                        <GroupBox>
-                            <GroupBox.Header>
-                                <TextBlock
-                                    Text="{Binding SelectedFile.Namespace, StringFormat='Points from file - {0}', FallbackValue='Points'}"
-                                    DockPanel.Dock="Top" />
-                            </GroupBox.Header>
-                            <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}"
-                                      AutoGenerateColumns="False"
-                                      CanUserAddRows="False">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="X">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointX}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Y">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointY}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </GroupBox>
-                    </Grid>
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Top">
+                            <TextBlock
+                                Text="{Binding SelectedFile.Namespace, StringFormat='Points from file - {0}', FallbackValue='Points'}"
+                                TextAlignment="Center" />
+                        </Grid>
+                        <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  Background="Transparent"
+                                  BorderBrush="Transparent">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="X">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="models:Location">
+                                            <TextBox Text="{Binding PointX}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Y">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="models:Location">
+                                            <TextBox Text="{Binding PointY}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
                 </Border>
-                <Border Grid.Column="1" Grid.Row="1" Margin="40,20,0,10" Padding="60"
-                        Background="{StaticResource BorderWhiteOpacity}"
+                <Border Grid.Column="1" Grid.Row="1" Margin="40,20,0,10" Padding="50,30,50,40"
+                        Background="{StaticResource BorderBlackOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
-                    <GroupBox Header="Files">
-                        <DockPanel>
-                            <UniformGrid DockPanel.Dock="Bottom" HorizontalAlignment="Center">
-                                <Button Content="Добавить" Margin="0,10,10,0" Width="190" Height="60"
-                                        Style="{StaticResource MainButton}"
-                                        Command="{Binding CreateNewFileCommand}" />
-                                <Button Content="Удалить" Margin="10,10,0,0" Width="190" Height="60"
-                                        Style="{StaticResource MainButton}"
-                                        Command="{Binding DeleteNewFileCommand}"
-                                        CommandParameter="{Binding SelectedFile}" />
-                            </UniformGrid>
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Bottom">
+                            <Button Content="Create new file" Width="215" Height="60"
+                                    Style="{StaticResource CreateFileButton}"
+                                    Command="{Binding CreateNewFileCommand}"
+                                    HorizontalAlignment="Left" />
+                            <Button Content="Delete selected file" Width="215" Height="60"
+                                    Style="{StaticResource DeleteFileButton}"
+                                    Command="{Binding DeleteNewFileCommand}"
+                                    CommandParameter="{Binding SelectedFile}"
+                                    HorizontalAlignment="Right" />
+                        </Grid>
+                        <UniformGrid Margin="0,5,0,20">
                             <ListBox ItemsSource="{Binding DataLocations}"
-                                     SelectedItem="{Binding SelectedFile}">
+                                     SelectedItem="{Binding SelectedFile}"
+                                     Background="Transparent"
+                                     BorderBrush="Transparent">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="models:DataLocation">
                                         <!-- TODO: перенести в отдельный юзер контрол -->
@@ -107,8 +112,8 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </DockPanel>
-                    </GroupBox>
+                        </UniformGrid>
+                    </DockPanel>
                 </Border>
             </Grid>
         </DockPanel>
