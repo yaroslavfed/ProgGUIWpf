@@ -6,16 +6,5 @@
              xmlns:local="clr-namespace:Application.GUIWpf.Views.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="Blue">
-            <TextBlock>test1</TextBlock>
-        </Grid>
-        <Grid Grid.Column="1" Background="Brown">
-            <TextBlock>test2</TextBlock>
-        </Grid>
-    </Grid>
+
 </UserControl>

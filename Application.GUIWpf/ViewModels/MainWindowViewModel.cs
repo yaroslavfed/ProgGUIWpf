@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Principal;
+using System.Windows;
 using System.Windows.Input;
 using Application.GUIWpf.Infrastructures.Commands;
 using Application.GUIWpf.Models;
@@ -33,11 +35,23 @@ internal class MainWindowViewModel : ViewModelBase
 
     #region Commands
 
+    #region SystemCommands
+
     public ICommand CloseApplicationCommand { get; }
+
+    public ICommand ReduceApplicationCommand { get; }
+
+    public ICommand WrapApplicationCommand { get; }
+
+    #endregion
+
+    #region FileSystemCommands
 
     public ICommand CreateNewFileCommand { get; }
 
     public ICommand DeleteNewFileCommand { get; }
+
+    #endregion
 
     #endregion
 
@@ -58,8 +72,11 @@ internal class MainWindowViewModel : ViewModelBase
     {
         #region Commands initialization
 
-        CloseApplicationCommand =
-            new Command(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+        CloseApplicationCommand = new Command(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+
+        WrapApplicationCommand = new Command(OnWrapApplicationCommandExecuted, CanWrapApplicationCommandExecute);
+        
+        ReduceApplicationCommand = new Command(OnReduceApplicationCommandExecuted, CanReduceApplicationCommandExecute);
 
         CreateNewFileCommand = new Command(OnCreateNewFileCommandExecuted, CanCreateNewFileCommandExecute);
 
@@ -95,8 +112,35 @@ internal class MainWindowViewModel : ViewModelBase
     private bool CanCloseApplicationCommandExecute(object parameter) => true;
 
     #endregion
+    
+    #region ReduceApplicationCommandExecute
 
+    private void OnReduceApplicationCommandExecuted(object parameter)
+    {
+        var winState = System.Windows.Application.Current.MainWindow!.WindowState;
+
+        if (winState == WindowState.Normal)
+            System.Windows.Application.Current.MainWindow!.WindowState = WindowState.Maximized;
+        else
+            System.Windows.Application.Current.MainWindow!.WindowState = WindowState.Normal;
+
+    }
+    
+    private bool CanReduceApplicationCommandExecute(object parameter) => true;
+
+    #endregion
+
+    #region WrapApplicationCommandExecute
+
+    private void OnWrapApplicationCommandExecuted(object parameter) =>
+        System.Windows.Application.Current.MainWindow!.WindowState = WindowState.Minimized;
+
+    private bool CanWrapApplicationCommandExecute(object parameter) => true;
+
+    #endregion
+    
     // TODO: переделать на работу с файловой системой
+
     #region CreateNewFileCommandExecute
 
     private void OnCreateNewFileCommandExecuted(object parameter)
@@ -114,6 +158,8 @@ internal class MainWindowViewModel : ViewModelBase
 
     #endregion
 
+    // TODO: переделать на работу с файловой системой
+
     #region DeleteNewFileCommandExecute
 
     private void OnDeleteNewFileCommandExecuted(object parameter)
@@ -121,9 +167,9 @@ internal class MainWindowViewModel : ViewModelBase
         if (parameter is not DataLocation dataLocation)
             return;
         var dataLocationIndex = DataLocations.IndexOf(dataLocation);
-        
+
         DataLocations.Remove(dataLocation);
-        
+
         if (dataLocationIndex < DataLocations.Count)
             SelectedFile = DataLocations[dataLocationIndex];
     }

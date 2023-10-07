@@ -26,10 +26,21 @@
             Style="{StaticResource BorderRoundedTemplate}">
         <DockPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="-35,30,0,30">
-                <Button Style="{StaticResource SystemButtonClose}" Width="30" Height="30"
-                        Margin="0,0,6,0" Command="{Binding CloseApplicationCommand}" />
-                <Button Style="{StaticResource SystemButtonReduce}" Width="30" Height="30" Margin="6,0" />
-                <Button Style="{StaticResource SystemButtonWrap}" Width="30" Height="30" Margin="6,0" />
+                <Button Style="{StaticResource SystemButtonClose}"
+                        Width="30"
+                        Height="30"
+                        Margin="0,0,6,0"
+                        Command="{Binding CloseApplicationCommand}" />
+                <Button Style="{StaticResource SystemButtonReduce}"
+                        Width="30"
+                        Height="30"
+                        Margin="6,0"
+                        Command="{Binding ReduceApplicationCommand}" />
+                <Button Style="{StaticResource SystemButtonWrap}"
+                        Width="30"
+                        Height="30"
+                        Margin="6,0"
+                        Command="{Binding WrapApplicationCommand}" />
             </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -40,20 +51,28 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border Grid.Column="0" Grid.RowSpan="2" Margin="0,0,40,0" Padding="60"
+                <Border Grid.Column="0" Grid.RowSpan="2"
+                        Padding="60"
+                        Margin="0,0,40,0"
                         Background="{StaticResource BorderBlackOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
                     <Grid>
                     </Grid>
                 </Border>
-                <Border Grid.Column="1" Grid.Row="0" Margin="40,0,0,25" Padding="60"
+                <Border Grid.Column="1" Grid.Row="0" Margin="40,0,0,25" Padding="60,0,60,60"
                         Background="{StaticResource BorderBlackOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
                     <DockPanel>
-                        <Grid DockPanel.Dock="Top">
-                            <TextBlock
-                                Text="{Binding SelectedFile.Namespace, StringFormat='Points from file - {0}', FallbackValue='Points'}"
-                                TextAlignment="Center" />
+                        <Grid DockPanel.Dock="Top" Margin="0,-10,0,10">
+                            <Border CornerRadius="10" Background="DarkGray" Opacity="0.8" Width="250" Height="30">
+                                <TextBlock
+                                    Padding="5"
+                                    Foreground="White"
+                                    FontWeight="SemiBold"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding SelectedFile.Namespace, StringFormat='Points from file - {0}', FallbackValue='Points'}"
+                                    TextAlignment="Center" />
+                            </Border>
                         </Grid>
                         <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}"
                                   AutoGenerateColumns="False"
@@ -85,34 +104,44 @@
                     <DockPanel>
                         <Grid DockPanel.Dock="Bottom">
                             <Button Content="Create new file" Width="215" Height="60"
-                                    Style="{StaticResource CreateFileButton}"
+                                    Style="{StaticResource FileSystemButton}"
                                     Command="{Binding CreateNewFileCommand}"
                                     HorizontalAlignment="Left" />
                             <Button Content="Delete selected file" Width="215" Height="60"
-                                    Style="{StaticResource DeleteFileButton}"
+                                    Style="{StaticResource FileSystemButton}"
                                     Command="{Binding DeleteNewFileCommand}"
                                     CommandParameter="{Binding SelectedFile}"
                                     HorizontalAlignment="Right" />
                         </Grid>
-                        <UniformGrid Margin="0,5,0,20">
-                            <ListBox ItemsSource="{Binding DataLocations}"
-                                     SelectedItem="{Binding SelectedFile}"
-                                     Background="Transparent"
-                                     BorderBrush="Transparent">
+                        <Grid Margin="0,5,0,20" HorizontalAlignment="Stretch">
+                            <ListBox
+                                ItemsSource="{Binding DataLocations}"
+                                SelectedItem="{Binding SelectedFile}"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                HorizontalContentAlignment="Stretch">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="models:DataLocation">
                                         <!-- TODO: перенести в отдельный юзер контрол -->
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Namespace}" />
-                                            <TextBlock
-                                                Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}"
-                                                Margin="5,0,0,0">
-                                            </TextBlock>
-                                        </StackPanel>
+                                        <Border Style="{StaticResource FilesListItem}" Width="428">
+                                            <Grid Margin="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0"
+                                                           Style="{StaticResource TextStyle}"
+                                                           Text="{Binding Namespace}" />
+                                                <TextBlock Grid.Column="1"
+                                                           TextAlignment="Right"
+                                                           Style="{StaticResource TextStyle}"
+                                                           Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}" />
+                                            </Grid>
+                                        </Border>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        </UniformGrid>
+                        </Grid>
                     </DockPanel>
                 </Border>
             </Grid>
