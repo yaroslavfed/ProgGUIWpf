@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Controls\" />
   </ItemGroup>
 
   <ItemGroup>
