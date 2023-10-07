@@ -12,7 +12,8 @@
         WindowState="Normal"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        MouseLeftButtonDown="window_MouseLeftButtonDown">
+        MouseLeftButtonDown="window_MouseLeftButtonDown"
+        AllowsTransparency="True">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
@@ -22,26 +23,26 @@
             <GradientStop Color="#2C0073" Offset="0.73" />
         </LinearGradientBrush>
     </Window.Background>
-    <Border Margin="30" Padding="100,10,100,75" Background="{StaticResource BorderWhiteOpacity}"
-            Style="{StaticResource BorderRoundedTemplate}">
-        <DockPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="-35,30,0,30">
-                <Button Style="{StaticResource SystemButtonClose}"
-                        Width="30"
-                        Height="30"
-                        Margin="0,0,6,0"
-                        Command="{Binding CloseApplicationCommand}" />
-                <Button Style="{StaticResource SystemButtonReduce}"
-                        Width="30"
-                        Height="30"
-                        Margin="6,0"
-                        Command="{Binding ReduceApplicationCommand}" />
-                <Button Style="{StaticResource SystemButtonWrap}"
-                        Width="30"
-                        Height="30"
-                        Margin="6,0"
-                        Command="{Binding WrapApplicationCommand}" />
-            </StackPanel>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="10,10">
+            <Button Style="{StaticResource SystemButtonClose}"
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,3,0"
+                    Command="{Binding CloseApplicationCommand}" />
+            <Button Style="{StaticResource SystemButtonReduce}"
+                    Width="20"
+                    Height="20"
+                    Margin="3,0"
+                    Command="{Binding ReduceApplicationCommand}" />
+            <Button Style="{StaticResource SystemButtonWrap}"
+                    Width="20"
+                    Height="20"
+                    Margin="3,0"
+                    Command="{Binding WrapApplicationCommand}" />
+        </StackPanel>
+        <Border Margin="17,0,17,17" Padding="50" Background="{StaticResource BorderWhiteOpacity}"
+                Style="{StaticResource BorderRoundedTemplate}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -78,7 +79,10 @@
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
                                   Background="Transparent"
-                                  BorderBrush="Transparent">
+                                  BorderBrush="Transparent"
+                                  HorizontalAlignment="Center"
+                                  RowBackground="Transparent"
+                                  Foreground="Azure">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="X">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -98,23 +102,41 @@
                         </DataGrid>
                     </DockPanel>
                 </Border>
-                <Border Grid.Column="1" Grid.Row="1" Margin="40,20,0,10" Padding="50,30,50,40"
+                <Border Grid.Column="1" Grid.Row="1" Margin="40,20,0,0" Padding="50,30,50,40"
                         Background="{StaticResource BorderBlackOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
                     <DockPanel>
                         <Grid DockPanel.Dock="Bottom">
-                            <Button Content="Create new file" Width="215" Height="60"
-                                    Style="{StaticResource FileSystemButton}"
-                                    Command="{Binding CreateNewFileCommand}"
-                                    HorizontalAlignment="Left" />
-                            <Button Content="Delete selected file" Width="215" Height="60"
-                                    Style="{StaticResource FileSystemButton}"
-                                    Command="{Binding DeleteNewFileCommand}"
-                                    CommandParameter="{Binding SelectedFile}"
-                                    HorizontalAlignment="Right" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Border
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="22"
+                                    BorderThickness="1"
+                                    Margin="3,0"
+                                    Style="{DynamicResource BorderAboveButton}">
+                                    <Button Content="Create new file" Width="210" Height="60"
+                                            Style="{StaticResource FileSystemButton}"
+                                            Command="{Binding CreateNewFileCommand}"
+                                            HorizontalAlignment="Left" />
+                                </Border>
+                                <Border
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="22"
+                                    BorderThickness="1"
+                                    Margin="3,0"
+                                    Style="{DynamicResource BorderAboveButton}">
+                                    <Button Content="Delete selected file" Width="215" Height="60"
+                                            Style="{StaticResource FileSystemButton}"
+                                            Command="{Binding DeleteNewFileCommand}"
+                                            CommandParameter="{Binding SelectedFile}"
+                                            HorizontalAlignment="Right" />
+                                </Border>
+                            </StackPanel>
                         </Grid>
                         <Grid Margin="0,5,0,20" HorizontalAlignment="Stretch">
                             <ListBox
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                 ItemsSource="{Binding DataLocations}"
                                 SelectedItem="{Binding SelectedFile}"
                                 Background="Transparent"
@@ -130,14 +152,21 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
                                                 <TextBlock Grid.Column="0"
+                                                           Name="FileName"
                                                            Style="{StaticResource TextStyle}"
                                                            Text="{Binding Namespace}" />
                                                 <TextBlock Grid.Column="1"
+                                                           Name="PointsCount"
                                                            TextAlignment="Right"
                                                            Style="{StaticResource TextStyle}"
                                                            Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}" />
                                             </Grid>
                                         </Border>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding LocationsList.Count}" Value="0">
+                                                <Setter TargetName="PointsCount" Property="Foreground" Value="Red" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -145,6 +174,6 @@
                     </DockPanel>
                 </Border>
             </Grid>
-        </DockPanel>
-    </Border>
+        </Border>
+    </DockPanel>
 </Window>

@@ -17,7 +17,33 @@
     <Style TargetType="TextBlock" x:Key="TextStyle">
         <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="FontWeight" Value="SemiBold"></Setter>
-        <Setter Property="FontSize" Value="13"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+    </Style>
+    
+    <Style TargetType="Border" x:Key="BorderAboveButton">
+        <Setter Property="BorderBrush" Value="#5944AD"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="#6956b5"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="BorderThickness" Value="0"/>
+            </Trigger>
+            <EventTrigger RoutedEvent="PreviewMouseDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Duration="0:0:0.100" To="#8777c3" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseUp">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Duration="0:0:0.100" To="#6956b5" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="Button" x:Key="FileSystemButton">
@@ -63,7 +89,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#FF0000" />
+                <Setter Property="Background" Value="Red" />
                 <Setter Property="Opacity" Value="1"></Setter>
             </Trigger>
         </Style.Triggers>
@@ -85,7 +111,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#FAFF00" />
+                <Setter Property="Background" Value="Orange" />
                 <Setter Property="Opacity" Value="1"></Setter>
             </Trigger>
         </Style.Triggers>
@@ -107,7 +133,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#00FF29" />
+                <Setter Property="Background" Value="SpringGreen" />
                 <Setter Property="Opacity" Value="1"></Setter>
             </Trigger>
         </Style.Triggers>
@@ -120,11 +146,24 @@
         <Setter Property="CornerRadius" Value="15" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Width" Value="Auto" />
-        <Setter Property="Focusable" Value="False"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Opacity" Value="0.7" />
             </Trigger>
+            <!-- <EventTrigger RoutedEvent="PreviewMouseDown"> -->
+            <!--     <BeginStoryboard> -->
+            <!--         <Storyboard> -->
+            <!--             <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.100" To="0.9" /> -->
+            <!--         </Storyboard> -->
+            <!--     </BeginStoryboard> -->
+            <!-- </EventTrigger> -->
+            <!-- <EventTrigger RoutedEvent="PreviewMouseUp"> -->
+            <!--     <BeginStoryboard> -->
+            <!--         <Storyboard> -->
+            <!--             <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.100" To="0.4" /> -->
+            <!--         </Storyboard> -->
+            <!--     </BeginStoryboard> -->
+            <!-- </EventTrigger> -->
         </Style.Triggers>
     </Style>
 
