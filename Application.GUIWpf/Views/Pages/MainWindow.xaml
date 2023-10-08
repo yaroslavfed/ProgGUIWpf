@@ -105,73 +105,137 @@
                 <Border Grid.Column="1" Grid.Row="1" Margin="40,20,0,0" Padding="50,30,50,40"
                         Background="{StaticResource BorderBlackOpacity}"
                         Style="{StaticResource BorderCornerRadius}">
-                    <DockPanel>
-                        <Grid DockPanel.Dock="Bottom">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Border
-                                    HorizontalAlignment="Left"
-                                    CornerRadius="22"
-                                    BorderThickness="1"
-                                    Margin="3,0"
-                                    Style="{DynamicResource BorderAboveButton}">
-                                    <Button Content="Create new file" Width="210" Height="60"
-                                            Style="{StaticResource FileSystemButton}"
-                                            Command="{Binding CreateNewFileCommand}"
-                                            HorizontalAlignment="Left" />
-                                </Border>
-                                <Border
-                                    HorizontalAlignment="Left"
-                                    CornerRadius="22"
-                                    BorderThickness="1"
-                                    Margin="3,0"
-                                    Style="{DynamicResource BorderAboveButton}">
-                                    <Button Content="Delete selected file" Width="215" Height="60"
-                                            Style="{StaticResource FileSystemButton}"
-                                            Command="{Binding DeleteNewFileCommand}"
-                                            CommandParameter="{Binding SelectedFile}"
-                                            HorizontalAlignment="Right" />
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                        <Grid Margin="0,5,0,20" HorizontalAlignment="Stretch">
-                            <ListBox
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                ItemsSource="{Binding DataLocations}"
-                                SelectedItem="{Binding SelectedFile}"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                HorizontalContentAlignment="Stretch">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate DataType="models:DataLocation">
-                                        <!-- TODO: перенести в отдельный юзер контрол -->
-                                        <Border Style="{StaticResource FilesListItem}" Width="428">
-                                            <Grid Margin="3">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Grid.Column="0"
-                                                           Name="FileName"
-                                                           Style="{StaticResource TextStyle}"
-                                                           Text="{Binding Namespace}" />
-                                                <TextBlock Grid.Column="1"
-                                                           Name="PointsCount"
-                                                           TextAlignment="Right"
-                                                           Style="{StaticResource TextStyle}"
-                                                           Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}" />
-                                            </Grid>
+                    <Grid>
+                        <DockPanel>
+                            <Grid DockPanel.Dock="Bottom">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Border Grid.Column="0" Grid.Row="0"
+                                                HorizontalAlignment="Left"
+                                                CornerRadius="22,0,0,22"
+                                                BorderThickness="1"
+                                                Margin="3,0,0,0"
+                                                Style="{DynamicResource BorderAboveButton}">
+                                            <Button Content="Create new file" Width="180" Height="60"
+                                                    Style="{StaticResource FileSystemButtonLow}"
+                                                    Command="{Binding CreateNewFileCommand}"
+                                                    HorizontalAlignment="Left" />
                                         </Border>
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding LocationsList.Count}" Value="0">
-                                                <Setter TargetName="PointsCount" Property="Foreground" Value="Red" />
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </Grid>
-                    </DockPanel>
+                                        <Border Grid.Column="1" Grid.Row="0"
+                                                HorizontalAlignment="Right"
+                                                CornerRadius="0,22,22,0"
+                                                BorderThickness="1"
+                                                Margin="0,0,3,0"
+                                                Style="{DynamicResource BorderAboveButton}">
+                                            <Button Width="30" Height="60"
+                                                    Style="{StaticResource FileSystemButtonPlus}"
+                                                    HorizontalAlignment="Left"
+                                                    Click="ButtonBase_OnClick">
+                                                <Polyline x:Name="Triangle"
+                                                          Stroke="DarkGray"
+                                                          StrokeThickness="1.5"
+                                                          Points="
+                                                            0, 0
+                                                            7, 6
+                                                            14, 0">
+                                                </Polyline>
+                                            </Button>
+                                        </Border>
+                                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="80" Width="180"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Bottom"
+                                              Margin="40,0,0,-80" x:Name="UploadSavePanel" Visibility="Collapsed">
+                                            <Polygon Fill="SpringGreen" StrokeThickness="3" Stroke="SpringGreen"
+                                                     Points="
+                                                     0, 13
+                                                     150, 13
+                                                     160, 5
+                                                     170, 13
+                                                     180, 13
+                                                     180, 80
+                                                     0, 80" />
+                                            <Polygon Fill="#5944AD" StrokeThickness="1" Stroke="BlueViolet"
+                                                     Points="
+                                                     0, 13
+                                                     150, 13
+                                                     160, 5
+                                                     170, 13
+                                                     180, 13
+                                                     180, 80
+                                                     0, 80" />
+                                            <StackPanel Margin="0,15,0,0">
+                                                <Button Content="Upload new file" 
+                                                        Style="{StaticResource DialogButton}"
+                                                        Command="{Binding UploadNewFileCommand}" />
+                                                <Button Content="Save current file" 
+                                                        Style="{StaticResource DialogButton}"
+                                                        Command="{Binding SaveToFileCommand}"
+                                                        CommandParameter="{Binding SelectedFile}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                    <Border
+                                        HorizontalAlignment="Left"
+                                        CornerRadius="22"
+                                        BorderThickness="1"
+                                        Margin="3,0"
+                                        Style="{DynamicResource BorderAboveButton}">
+                                        <Button Content="Delete selected file" Width="215" Height="60"
+                                                Style="{StaticResource FileSystemButtonFull}"
+                                                Command="{Binding DeleteNewFileCommand}"
+                                                CommandParameter="{Binding SelectedFile}"
+                                                HorizontalAlignment="Right" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Margin="0,5,0,20" HorizontalAlignment="Stretch">
+                                <ListBox
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                    ItemsSource="{Binding DataLocations}"
+                                    SelectedItem="{Binding SelectedFile}"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    HorizontalContentAlignment="Stretch">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate DataType="models:DataLocation">
+                                            <!-- TODO: перенести в отдельный юзер контрол -->
+                                            <Border Style="{StaticResource FilesListItem}" Width="428">
+                                                <Grid Margin="3">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0"
+                                                               Name="FileName"
+                                                               Style="{StaticResource TextStyle}"
+                                                               Text="{Binding Namespace}" />
+                                                    <TextBlock Grid.Column="1"
+                                                               Name="PointsCount"
+                                                               TextAlignment="Right"
+                                                               Style="{StaticResource TextStyle}"
+                                                               Text="{Binding LocationsList.Count, StringFormat='[points count - {0}]'}" />
+                                                </Grid>
+                                            </Border>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding LocationsList.Count}" Value="0">
+                                                    <Setter TargetName="PointsCount" Property="Foreground" Value="Red" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
                 </Border>
             </Grid>
         </Border>

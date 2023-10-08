@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Application.GUIWpf.Views.Pages
 {
@@ -14,24 +15,26 @@ namespace Application.GUIWpf.Views.Pages
         {
             InitializeComponent();
         }
-        
-        private void RemoveText(object sender, EventArgs e)
-        {
-            TextBox instance = (TextBox)sender;
-            if (instance.Text == instance.Tag.ToString())
-                instance.Text = "";
-        }
 
-        private void AddText(object sender, EventArgs e)
-        {
-            TextBox instance = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(instance.Text))
-                instance.Text = instance.Tag.ToString();
-        }
-        
         private void window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (UploadSavePanel.Visibility == Visibility.Collapsed)
+            {
+                UploadSavePanel.Visibility = Visibility.Visible;
+                RotateTransform rotateTransform = new RotateTransform(180,7,3);
+                Triangle.RenderTransform = rotateTransform;
+            }
+            else
+            {
+                UploadSavePanel.Visibility = Visibility.Collapsed;
+                RotateTransform rotateTransform = new RotateTransform(0);
+                Triangle.RenderTransform = rotateTransform;
+            }
         }
     }
 }

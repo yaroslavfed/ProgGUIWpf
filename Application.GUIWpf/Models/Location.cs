@@ -1,6 +1,8 @@
-﻿namespace Application.GUIWpf.Models;
+﻿using Application.GUIWpf.Infrastructures.Interfaces;
 
-internal struct Location
+namespace Application.GUIWpf.Models;
+
+internal class Location : ICoordinatesCollection
 {
     public double PointX { get; set; }
     public double PointY { get; set; }
