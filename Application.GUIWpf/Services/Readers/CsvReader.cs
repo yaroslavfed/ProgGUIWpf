@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Application.GUIWpf.Models;
 using Common.Base.Abstractions;
+using Common.Base.Converters;
 using Common.Base.Interfaces;
 
 namespace Application.GUIWpf.Services.Readers;
@@ -48,7 +49,7 @@ public sealed class CsvReader : ReaderBase
 
         var dataLocation = new DataLocation
         {
-            Namespace = FileName,
+            Namespace = FileName.ToShortFileName(),
             LocationsList = await coordinatesCollection
         };
 
@@ -78,7 +79,7 @@ public sealed class CsvReader : ReaderBase
     {
         var pointPairs = new List<string>();
 
-        using var reader = new StreamReader(FileName);
+        using var reader = new StreamReader(FileName!);
         while (await reader.ReadLineAsync() is { } line)
         {
             pointPairs.Add(line);

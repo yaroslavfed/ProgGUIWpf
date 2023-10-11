@@ -75,31 +75,49 @@
                                     TextAlignment="Center" />
                             </Border>
                         </Grid>
-                        <DataGrid ItemsSource="{Binding SelectedFile.LocationsList}"
-                                  AutoGenerateColumns="False"
-                                  CanUserAddRows="False"
-                                  Background="Transparent"
-                                  BorderBrush="Transparent"
-                                  HorizontalAlignment="Center"
-                                  RowBackground="Transparent"
-                                  Foreground="Azure">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="X">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate DataType="models:Location">
-                                            <TextBox Text="{Binding PointX}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Y">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate DataType="models:Location">
-                                            <TextBox Text="{Binding PointY}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <DataGrid Grid.Row="0"
+                                      ItemsSource="{Binding SelectedFile.LocationsList}"
+                                      HorizontalContentAlignment="Stretch"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      Background="DarkGray"
+                                      BorderBrush="LightGray"
+                                      BorderThickness="1"
+                                      HorizontalAlignment="Center"
+                                      RowBackground="Transparent"
+                                      Foreground="Azure"
+                                      Margin="100,25,100,10">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="X">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="models:Location">
+                                                <TextBox Text="{Binding PointX}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Y">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="models:Location">
+                                                <TextBox Text="{Binding PointY}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Grid Grid.Row="1" VerticalAlignment="Bottom" Width="170" Opacity="0.5">
+                                <Button Width="80" Height="30" HorizontalAlignment="Left" Margin="0,5"
+                                        Background="White" BorderBrush="White" Content="Add"
+                                        Foreground="DarkSlateGray" />
+                                <Button Width="80" Height="30" HorizontalAlignment="Right" Margin="0,5"
+                                        Background="White" BorderBrush="White" Content="Delete"
+                                        Foreground="DarkSlateGray" />
+                            </Grid>
+                        </Grid>
                     </DockPanel>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1" Margin="40,20,0,0" Padding="50,30,50,40"
@@ -172,10 +190,10 @@
                                                      180, 80
                                                      0, 80" />
                                             <StackPanel Margin="0,15,0,0">
-                                                <Button Content="Upload new file" 
+                                                <Button Content="Upload new file"
                                                         Style="{StaticResource DialogButton}"
                                                         Command="{Binding UploadNewFileCommand}" />
-                                                <Button Content="Save current file" 
+                                                <Button Content="Save current file"
                                                         Style="{StaticResource DialogButton}"
                                                         Command="{Binding SaveToFileCommand}"
                                                         CommandParameter="{Binding SelectedFile}" />

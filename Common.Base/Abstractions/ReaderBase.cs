@@ -6,7 +6,7 @@ namespace Common.Base.Abstractions
     {
         #region Properties
 
-        public abstract string FileName { get; set; }
+        public abstract string? FileName { get; set; }
 
         public abstract required string FileExtension { get; set; }
 
