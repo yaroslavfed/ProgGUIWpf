@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Application.GUIWpf.Infrastructures.Abstractions;
 using Application.GUIWpf.Infrastructures.Commands;
 using Application.GUIWpf.Infrastructures.Interfaces;
 using Application.GUIWpf.Models;
@@ -15,7 +16,7 @@ using Common.Base;
 
 namespace Application.GUIWpf.ViewModels;
 
-internal class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel : ViewModelBase
 {
     #region Private fields
 
@@ -207,15 +208,22 @@ internal class MainWindowViewModel : ViewModelBase
 
     private async void OnUploadNewFileCommandExecuted(object parameter)
     {
-        var csvReader = new CsvReader("ViewModels\\testCsv.csv");
-        await csvReader.Startup();
+        Reader csvReader = new CsvReader()
+        {
+            FileExtension = ".csv"
+        };
+
+        var result = await csvReader.StartupAsync();
+
+        if (result != null)
+            DataLocations.Add(result);
     }
 
     private bool CanUploadNewFileCommandExecute(object parameter) =>
         true;
 
     #endregion
-    
+
     // TODO: переделать на работу с файловой системой
 
     #region SaveToFileCommandExecute
@@ -224,7 +232,7 @@ internal class MainWindowViewModel : ViewModelBase
     {
         if (parameter is not DataLocation dataLocation)
             return;
-        
+
         MessageBox.Show($"Saving file {dataLocation.Namespace}...");
     }
 

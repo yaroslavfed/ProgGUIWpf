@@ -1,36 +1,117 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using Application.GUIWpf.Infrastructures.Abstractions;
 using Application.GUIWpf.Infrastructures.Interfaces;
 using Application.GUIWpf.Models;
 
 namespace Application.GUIWpf.Services.Readers;
 
-public class CsvReader
+public sealed class CsvReader : Reader
 {
-    private string _fileFullName;
+    #region Private fields
 
-    private IReaderSupport? _fileData;
+    private bool _isActionStart;
 
-    public CsvReader(string fileFullName)
+    #endregion
+
+    #region Properties
+
+    public override string? FileName { get; set; }
+
+    public override required string FileExtension { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    public CsvReader()
     {
-        _fileFullName = fileFullName;
     }
 
-    public async Task<IReaderSupport> Startup()
+    #endregion
+
+    #region Methods
+
+    public override async Task<DataLocation?> StartupAsync()
+    {
+        FileName = OpenTargetFile(FileExtension, out _isActionStart);
+
+        if (!_isActionStart)
+        {
+            return null;
+        }
+
+        var stringPointPairsCollection = ReadFileAsync();
+
+        var coordinatesCollection = DataCollectionInitialization(await stringPointPairsCollection);
+
+        var dataLocation = new DataLocation
+        {
+            Namespace = FileName,
+            LocationsList = await coordinatesCollection
+        };
+
+        return dataLocation;
+    }
+
+    public override string OpenTargetFile(string? fileExtension, out bool result)
+    {
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            DefaultExt = FileExtension,
+            Filter = $"Text documents ({FileExtension})|*{FileExtension}"
+        };
+
+        result = (bool)dialog.ShowDialog()!;
+
+        if (result)
+        {
+            string filename = dialog.FileName;
+            return filename;
+        }
+
+        return string.Empty;
+    }
+
+    public override async Task<IList<string>> ReadFileAsync()
     {
         var pointPairs = new List<string>();
-        
-        using (var reader = new StreamReader(_fileFullName))
+
+        using var reader = new StreamReader(FileName);
+        while (await reader.ReadLineAsync() is { } line)
         {
-            string? line;
-            while ((line = await reader.ReadLineAsync()) != null)
-            {
-                MessageBox.Show(line);
-            }
+            pointPairs.Add(line);
         }
-        
-        return _fileData;
+
+        return pointPairs;
     }
+
+    public override Task<IList<ICoordinatesCollection>> DataCollectionInitialization(
+        IEnumerable<string> pointsCollection)
+    {
+        var coordinatesCollection = new List<ICoordinatesCollection>();
+
+        foreach (var pointPair in pointsCollection)
+        {
+            var data = new Location();
+            var coordinate = pointPair.Split(',');
+
+            double.TryParse(coordinate[0], out var pointX);
+            double.TryParse(coordinate[1], out var pointY);
+
+            data.PointX = pointX;
+            data.PointY = pointY;
+
+            coordinatesCollection.Add(data);
+        }
+
+        return Task.FromResult<IList<ICoordinatesCollection>>(coordinatesCollection);
+    }
+
+    #endregion
 }
