@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.GUIWpf.Infrastructures.Interfaces;
-using Application.GUIWpf.Models;
+﻿using Common.Base.Interfaces;
 
-namespace Application.GUIWpf.Infrastructures.Abstractions
+namespace Common.Base.Abstractions
 {
-    public abstract class Reader
+    public abstract class ReaderBase
     {
         #region Properties
 
@@ -22,7 +14,7 @@ namespace Application.GUIWpf.Infrastructures.Abstractions
 
         #region Constructors
 
-        protected Reader() : base()
+        protected ReaderBase() : base()
         {
         }
 
@@ -30,7 +22,7 @@ namespace Application.GUIWpf.Infrastructures.Abstractions
 
         #region Methods
 
-        public abstract Task<DataLocation?> StartupAsync();
+        public abstract Task<IReaderSupport?> StartupAsync();
 
         public abstract string OpenTargetFile(string? fileExtension, out bool result);
 

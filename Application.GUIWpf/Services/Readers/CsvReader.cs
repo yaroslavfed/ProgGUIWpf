@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
-using Application.GUIWpf.Infrastructures.Abstractions;
-using Application.GUIWpf.Infrastructures.Interfaces;
 using Application.GUIWpf.Models;
+using Common.Base.Abstractions;
+using Common.Base.Interfaces;
 
 namespace Application.GUIWpf.Services.Readers;
 
-public sealed class CsvReader : Reader
+public sealed class CsvReader : ReaderBase
 {
     #region Private fields
 
@@ -37,7 +33,7 @@ public sealed class CsvReader : Reader
 
     #region Methods
 
-    public override async Task<DataLocation?> StartupAsync()
+    public override async Task<IReaderSupport?> StartupAsync()
     {
         FileName = OpenTargetFile(FileExtension, out _isActionStart);
 

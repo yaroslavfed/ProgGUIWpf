@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.Base;
+using Common.Base.Abstractions;
 
 namespace Application.GUIWpf.Infrastructures.Commands;
 

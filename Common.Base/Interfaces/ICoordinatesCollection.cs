@@ -1,4 +1,4 @@
-﻿namespace Application.GUIWpf.Infrastructures.Interfaces;
+﻿namespace Common.Base.Interfaces;
 
 public interface ICoordinatesCollection
 {

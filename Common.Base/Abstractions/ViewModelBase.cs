@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Common.Base.Interfaces;
 
-namespace Common.Base;
+namespace Common.Base.Abstractions;
 
 public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 {

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace Application.GUIWpf.Infrastructures.Interfaces;
+﻿namespace Common.Base.Interfaces;
 
 public interface IReaderSupport
 {

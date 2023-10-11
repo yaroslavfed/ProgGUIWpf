@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Application.GUIWpf.Infrastructures.Interfaces;
+using Common.Base.Interfaces;
 
 namespace Application.GUIWpf.Models;
 

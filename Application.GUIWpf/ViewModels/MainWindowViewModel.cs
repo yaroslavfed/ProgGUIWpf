@@ -1,18 +1,13 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Security.Principal;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Application.GUIWpf.Infrastructures.Abstractions;
 using Application.GUIWpf.Infrastructures.Commands;
-using Application.GUIWpf.Infrastructures.Interfaces;
 using Application.GUIWpf.Models;
 using Application.GUIWpf.Services.Readers;
-using Common.Base;
+using Common.Base.Abstractions;
+using Common.Base.Interfaces;
 
 namespace Application.GUIWpf.ViewModels;
 
@@ -22,15 +17,15 @@ public class MainWindowViewModel : ViewModelBase
 
     private string _title = "Главное окно";
 
-    private DataLocation _selectedFile = default!;
+    private IReaderSupport _selectedFile = default!;
 
     #endregion
 
     #region Public fields
 
-    public ObservableCollection<DataLocation> DataLocations { get; }
+    public ObservableCollection<IReaderSupport> DataLocations { get; } = new();
 
-    public DataLocation SelectedFile
+    public IReaderSupport SelectedFile
     {
         get => _selectedFile;
         set => Set(ref _selectedFile, value);
@@ -96,32 +91,6 @@ public class MainWindowViewModel : ViewModelBase
         SaveToFileCommand = new Command(OnSaveToFileCommandExecuted, CanSaveToFileCommandExecute);
 
         #endregion
-
-        #region FileSystem initialization
-
-        // TODO: убрать сидирование, заменить на получение его из файла
-        var indexSeedPoint = 1;
-
-        // var points = Enumerable.Range(1, new Random().Next(2, 10)).Select(i => new Location
-        // {
-        //     PointX = indexSeedPoint,
-        //     PointY = Math.Pow(indexSeedPoint++, 2)
-        // });
-
-        var dataTemplate = Enumerable.Range(1, new Random().Next(2, 5)).Select(i => new DataLocation
-        {
-            Namespace = $"File {i}",
-            LocationsList = new ObservableCollection<ICoordinatesCollection>(Enumerable
-                .Range(1, new Random().Next(2, 10)).Select(j => new Location
-                {
-                    PointX = indexSeedPoint,
-                    PointY = Math.Pow(indexSeedPoint++, 2)
-                }))
-        });
-
-        #endregion
-
-        DataLocations = new ObservableCollection<DataLocation>(dataTemplate);
     }
 
     #endregion
@@ -161,8 +130,6 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    // TODO: переделать на работу с файловой системой
-
     #region CreateNewFileCommandExecute
 
     private void OnCreateNewFileCommandExecuted(object parameter)
@@ -181,13 +148,11 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    // TODO: переделать на работу с файловой системой
-
     #region DeleteNewFileCommandExecute
 
     private void OnDeleteNewFileCommandExecuted(object parameter)
     {
-        if (parameter is not DataLocation dataLocation)
+        if (parameter is not IReaderSupport dataLocation)
             return;
         var dataLocationIndex = DataLocations.IndexOf(dataLocation);
 
@@ -202,18 +167,16 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    // TODO: переделать на работу с файловой системой
-
     #region UploadNewFileCommandExecute
 
     private async void OnUploadNewFileCommandExecuted(object parameter)
     {
-        Reader csvReader = new CsvReader()
+        ReaderBase csvReaderBase = new CsvReader()
         {
             FileExtension = ".csv"
         };
 
-        var result = await csvReader.StartupAsync();
+        var result = await csvReaderBase.StartupAsync();
 
         if (result != null)
             DataLocations.Add(result);
