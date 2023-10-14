@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Application.GUIWpf.Infrastructures.Commands;
 using Application.GUIWpf.Models;
 using Application.GUIWpf.Services.Readers;
 using Common.Base.Abstractions;
+using Common.Base.Converters;
 using Common.Base.Interfaces;
 
 namespace Application.GUIWpf.ViewModels;
@@ -111,10 +115,10 @@ public class MainWindowViewModel : ViewModelBase
     {
         var winState = System.Windows.Application.Current.MainWindow!.WindowState;
 
-        if (winState == WindowState.Normal)
-            System.Windows.Application.Current.MainWindow!.WindowState = WindowState.Maximized;
-        else
-            System.Windows.Application.Current.MainWindow!.WindowState = WindowState.Normal;
+        System.Windows.Application.Current.MainWindow!.WindowState =
+            winState == WindowState.Normal 
+                ? WindowState.Maximized 
+                : WindowState.Normal;
     }
 
     private bool CanReduceApplicationCommandExecute(object parameter) => true;
@@ -187,20 +191,36 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    // TODO: переделать на работу с файловой системой
-
     #region SaveToFileCommandExecute
 
     private void OnSaveToFileCommandExecuted(object parameter)
     {
-        if (parameter is not DataLocation dataLocation)
+        if (parameter is not IReaderSupport dataLocation)
             return;
 
-        MessageBox.Show($"Saving file {dataLocation.Namespace}...");
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            FileName = dataLocation.Namespace,
+            DefaultExt = ".csv",
+            Filter = "Text documents (.csv)|*.csv"
+        };
+
+        var result = dialog.ShowDialog();
+
+        if (result != true) return;
+
+        var filename = dialog.FileName;
+
+        var sb = new StringBuilder();
+        foreach (var data in dataLocation.LocationsList)
+            sb.AppendLine(data.ToCsvFormat());
+
+        File.WriteAllText(filename, sb.ToString());
+        MessageBox.Show($"Файл {filename.ToShortFileName()} сохранен");
     }
 
     private bool CanSaveToFileCommandExecute(object parameter) =>
-        parameter is DataLocation dataLocation && DataLocations.Contains(dataLocation);
+        parameter is IReaderSupport dataLocation && DataLocations.Contains(dataLocation);
 
     #endregion
 
