@@ -89,24 +89,12 @@
                                       BorderBrush="LightGray"
                                       BorderThickness="1"
                                       HorizontalAlignment="Center"
-                                      RowBackground="Transparent"
-                                      Foreground="Azure"
-                                      Margin="100,25,100,10">
+                                      Foreground="White"
+                                      Margin="100,25,100,10"
+                                      CellEditEnding="dataGrid_CellEditEnding">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="X">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointX}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Y">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate DataType="models:Location">
-                                                <TextBox Text="{Binding PointY}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Binding="{Binding PointX, UpdateSourceTrigger=PropertyChanged}" Header="X"/>
+                                    <DataGridTextColumn Binding="{Binding PointY, UpdateSourceTrigger=PropertyChanged}" Header="Y"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <Grid Grid.Row="1" VerticalAlignment="Bottom" Width="170" Opacity="0.5">

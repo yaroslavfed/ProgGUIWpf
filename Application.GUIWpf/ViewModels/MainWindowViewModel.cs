@@ -17,18 +17,39 @@ namespace Application.GUIWpf.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    #region Private fields
+    #region Fields
 
+    /// <summary>
+    /// Заголовок окна
+    /// </summary>
     private string _title = "Главное окно";
 
+    /// <summary>
+    /// Выбранный в данный момент файл
+    /// </summary>
     private IReaderSupport _selectedFile = default!;
+
+    /// <summary>
+    /// Коллекция файлов с точками
+    /// </summary>
+    public ObservableCollection<IReaderSupport> DataLocations { get; } = new();
 
     #endregion
 
-    #region Public fields
+    #region Properties
 
-    public ObservableCollection<IReaderSupport> DataLocations { get; } = new();
+    /// <summary>
+    /// Заголовок окна Property
+    /// </summary> 
+    public string Title
+    {
+        get => _title;
+        set => Set(ref _title, value);
+    }
 
+    /// <summary>
+    /// Выбранный в данный момент файл Property
+    /// </summary>
     public IReaderSupport SelectedFile
     {
         get => _selectedFile;
@@ -41,36 +62,60 @@ public class MainWindowViewModel : ViewModelBase
 
     #region SystemCommands
 
+    /// <summary>
+    /// Команда для закрытия окна приложения
+    /// </summary>
     public ICommand CloseApplicationCommand { get; }
 
+    /// <summary>
+    /// Команда для уменьшения размеров окна приложения
+    /// </summary>
     public ICommand ReduceApplicationCommand { get; }
 
+    /// <summary>
+    /// Команда для сворачивания окна приложения
+    /// </summary>
     public ICommand WrapApplicationCommand { get; }
 
     #endregion
 
     #region FileSystemCommands
 
+    /// <summary>
+    /// Команда для создания нового пустого файла
+    /// </summary>
     public ICommand CreateNewFileCommand { get; }
 
+    /// <summary>
+    /// Команда для удаления выбранного файла
+    /// </summary>
     public ICommand DeleteNewFileCommand { get; }
 
+    /// <summary>
+    /// Команда загрузки пользовательского файла в программу
+    /// </summary>
     public ICommand UploadNewFileCommand { get; }
 
+    /// <summary>
+    /// Команда сохранения выбранного файла пользователю
+    /// </summary>
     public ICommand SaveToFileCommand { get; }
 
     #endregion
 
+    #region PointsSystemCommands
+
+    /// <summary>
+    /// Команда добавления новой точки в текущий файл
+    /// </summary>
+    public ICommand AddNewPointCommand { get; }
+
+    /// <summary>
+    /// Команда удаления последней точки из файла
+    /// </summary>
+    public ICommand DeletePointCommand { get; }
+
     #endregion
-
-    #region Properties
-
-    /// <summary>Заголовок окна</summary> 
-    public string Title
-    {
-        get => _title;
-        set => Set(ref _title, value);
-    }
 
     #endregion
 
@@ -94,6 +139,10 @@ public class MainWindowViewModel : ViewModelBase
 
         SaveToFileCommand = new Command(OnSaveToFileCommandExecuted, CanSaveToFileCommandExecute);
 
+        AddNewPointCommand = new Command(OnAddNewPointCommandExecuted, CanAddNewPointCommandExecute);
+
+        //DeletePointCommand = new Command(OnDeletePointCommandExecuted, CanDeletePointCommandExecute);
+
         #endregion
     }
 
@@ -101,7 +150,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #region Methods
 
-    #region CloseApplicationCommandExecute
+    #region CloseApplicationCommand
 
     private void OnCloseApplicationCommandExecuted(object parameter) => System.Windows.Application.Current.Shutdown();
 
@@ -109,15 +158,15 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    #region ReduceApplicationCommandExecute
+    #region ReduceApplicationCommand
 
     private void OnReduceApplicationCommandExecuted(object parameter)
     {
         var winState = System.Windows.Application.Current.MainWindow!.WindowState;
 
         System.Windows.Application.Current.MainWindow!.WindowState =
-            winState == WindowState.Normal 
-                ? WindowState.Maximized 
+            winState == WindowState.Normal
+                ? WindowState.Maximized
                 : WindowState.Normal;
     }
 
@@ -125,7 +174,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    #region WrapApplicationCommandExecute
+    #region WrapApplicationCommand
 
     private void OnWrapApplicationCommandExecuted(object parameter) =>
         System.Windows.Application.Current.MainWindow!.WindowState = WindowState.Minimized;
@@ -134,7 +183,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    #region CreateNewFileCommandExecute
+    #region CreateNewFileCommand
 
     private void OnCreateNewFileCommandExecuted(object parameter)
     {
@@ -152,7 +201,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    #region DeleteNewFileCommandExecute
+    #region DeleteNewFileCommand
 
     private void OnDeleteNewFileCommandExecuted(object parameter)
     {
@@ -171,7 +220,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    #region UploadNewFileCommandExecute
+    #region UploadNewFileCommand
 
     private async void OnUploadNewFileCommandExecuted(object parameter)
     {
@@ -191,7 +240,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    #region SaveToFileCommandExecute
+    #region SaveToFileCommand
 
     private void OnSaveToFileCommandExecuted(object parameter)
     {
@@ -221,6 +270,20 @@ public class MainWindowViewModel : ViewModelBase
 
     private bool CanSaveToFileCommandExecute(object parameter) =>
         parameter is IReaderSupport dataLocation && DataLocations.Contains(dataLocation);
+
+    #endregion
+
+    // TODO: доделать добавление точек
+    #region AddNewPointCommand
+
+    private void OnAddNewPointCommandExecuted(object parameter)
+    {
+    }
+
+    private bool CanAddNewPointCommandExecute(object parameter)
+    {
+        return false;
+    }
 
     #endregion
 
