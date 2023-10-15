@@ -142,7 +142,7 @@ public class MainWindowViewModel : ViewModelBase
 
         AddNewPointCommand = new Command(OnAddNewPointCommandExecuted, CanAddNewPointCommandExecute);
 
-        //DeletePointCommand = new Command(OnDeletePointCommandExecuted, CanDeletePointCommandExecute);
+        DeletePointCommand = new Command(OnDeletePointCommandExecuted, CanDeletePointCommandExecute);
 
         #endregion
     }
@@ -289,6 +289,21 @@ public class MainWindowViewModel : ViewModelBase
     private bool CanAddNewPointCommandExecute(object parameter)
     {
         return parameter is IReaderSupport dataLocation && DataLocations.Contains(dataLocation);
+    }
+
+    #endregion
+
+    #region DeletePointCommand
+
+    private void OnDeletePointCommandExecuted(object parameter)
+    {
+        var item = DataLocations.FirstOrDefault(i => i == SelectedFile)?.LocationsList;
+        item?.RemoveAt(item.Count - 1);
+    }
+
+    private bool CanDeletePointCommandExecute(object parameter)
+    {
+        return parameter is IReaderSupport dataLocation && DataLocations.Contains(dataLocation) && dataLocation.LocationsList.Count > 0;
     }
 
     #endregion

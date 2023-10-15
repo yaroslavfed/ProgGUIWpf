@@ -100,6 +100,17 @@
         </Style.Triggers>
     </Style>
 
+    <Style TargetType="Button" x:Key="ButtonHoverStyle">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="Button" x:Key="FileSystemButtonPlus">
         <Setter Property="Template">
             <Setter.Value>
