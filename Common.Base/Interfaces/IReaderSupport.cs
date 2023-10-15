@@ -3,5 +3,5 @@
 public interface IReaderSupport
 {
     string Namespace { get; set; }
-    ICollection<ICoordinatesCollection> LocationsList { get; set; }
+    IList<ICoordinatesCollection> LocationsList { get; set; }
 }

@@ -4,6 +4,6 @@ namespace Application.GUIWpf.Models;
 
 internal class Location : ICoordinatesCollection
 {
-    public double PointX { get; set; }
-    public double PointY { get; set; }
+    public double PointX { get; set; } = 0;
+    public double PointY { get; set; } = 0;
 }

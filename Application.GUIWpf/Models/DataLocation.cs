@@ -5,6 +5,6 @@ namespace Application.GUIWpf.Models;
 
 public class DataLocation : IReaderSupport
 {
-    public string Namespace { get; set; }
-    public ICollection<ICoordinatesCollection> LocationsList { get; set; }
+    public required string Namespace { get; set; }
+    public IList<ICoordinatesCollection> LocationsList { get; set; }
 }

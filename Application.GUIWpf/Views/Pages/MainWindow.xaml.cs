@@ -21,7 +21,7 @@ namespace Application.GUIWpf.Views.Pages
         private void window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // TODO: переделать на движение только через верхнюю панель
-            //this.DragMove();
+            DragMove();
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -29,13 +29,13 @@ namespace Application.GUIWpf.Views.Pages
             if (UploadSavePanel.Visibility == Visibility.Collapsed)
             {
                 UploadSavePanel.Visibility = Visibility.Visible;
-                RotateTransform rotateTransform = new RotateTransform(180, 7, 3);
+                var rotateTransform = new RotateTransform(180, 7, 3);
                 Triangle.RenderTransform = rotateTransform;
             }
             else
             {
                 UploadSavePanel.Visibility = Visibility.Collapsed;
-                RotateTransform rotateTransform = new RotateTransform(0);
+                var rotateTransform = new RotateTransform(0);
                 Triangle.RenderTransform = rotateTransform;
             }
         }

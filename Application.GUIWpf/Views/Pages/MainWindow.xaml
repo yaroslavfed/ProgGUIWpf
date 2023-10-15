@@ -12,7 +12,6 @@
         WindowState="Normal"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        MouseLeftButtonDown="window_MouseLeftButtonDown"
         AllowsTransparency="True">
     <Window.DataContext>
         <vm:MainWindowViewModel />
@@ -93,14 +92,18 @@
                                       Margin="100,25,100,10"
                                       CellEditEnding="dataGrid_CellEditEnding">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding PointX, UpdateSourceTrigger=PropertyChanged}" Header="X"/>
-                                    <DataGridTextColumn Binding="{Binding PointY, UpdateSourceTrigger=PropertyChanged}" Header="Y"/>
+                                    <DataGridTextColumn Binding="{Binding PointX, UpdateSourceTrigger=PropertyChanged}"
+                                                        Header="X" />
+                                    <DataGridTextColumn Binding="{Binding PointY, UpdateSourceTrigger=PropertyChanged}"
+                                                        Header="Y" />
                                 </DataGrid.Columns>
                             </DataGrid>
                             <Grid Grid.Row="1" VerticalAlignment="Bottom" Width="170" Opacity="0.5">
                                 <Button Width="80" Height="30" HorizontalAlignment="Left" Margin="0,5"
-                                        Background="White" BorderBrush="White" Content="Add"
-                                        Foreground="DarkSlateGray" />
+                                        Background="DarkSlateGray" BorderBrush="White" Content="Add"
+                                        Style="{StaticResource FileSystemButtonFull}"
+                                        Command="{Binding AddNewPointCommand}"
+                                        CommandParameter="{Binding SelectedFile}"/>
                                 <Button Width="80" Height="30" HorizontalAlignment="Right" Margin="0,5"
                                         Background="White" BorderBrush="White" Content="Delete"
                                         Foreground="DarkSlateGray" />

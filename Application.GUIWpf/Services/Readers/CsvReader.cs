@@ -10,7 +10,7 @@ namespace Application.GUIWpf.Services.Readers;
 
 public sealed class CsvReader : ReaderBase
 {
-    #region Private fields
+    #region Fields
 
     private bool _isActionStart;
 

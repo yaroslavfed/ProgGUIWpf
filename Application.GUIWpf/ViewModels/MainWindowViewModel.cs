@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,7 @@ public class MainWindowViewModel : ViewModelBase
     /// <summary>
     /// Коллекция файлов с точками
     /// </summary>
-    public ObservableCollection<IReaderSupport> DataLocations { get; } = new();
+    public IList<IReaderSupport> DataLocations { get; } = new ObservableCollection<IReaderSupport>();
 
     #endregion
 
@@ -232,7 +233,12 @@ public class MainWindowViewModel : ViewModelBase
         var result = await csvReaderBase.StartupAsync();
 
         if (result != null)
-            DataLocations.Add(result);
+            DataLocations.Add(
+                new DataLocation
+                {
+                    Namespace = result.Namespace,
+                    LocationsList = new ObservableCollection<ICoordinatesCollection>(result.LocationsList)
+                });
     }
 
     private bool CanUploadNewFileCommandExecute(object parameter) =>
@@ -273,16 +279,16 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
-    // TODO: доделать добавление точек
     #region AddNewPointCommand
 
     private void OnAddNewPointCommandExecuted(object parameter)
     {
+        DataLocations.FirstOrDefault(i => i == SelectedFile)?.LocationsList.Add(new Location());
     }
 
     private bool CanAddNewPointCommandExecute(object parameter)
     {
-        return false;
+        return parameter is IReaderSupport dataLocation && DataLocations.Contains(dataLocation);
     }
 
     #endregion
