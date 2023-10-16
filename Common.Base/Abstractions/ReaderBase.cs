@@ -14,7 +14,7 @@ namespace Common.Base.Abstractions
 
         #region Constructors
 
-        protected ReaderBase() : base()
+        protected ReaderBase()
         {
         }
 

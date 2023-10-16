@@ -31,10 +31,4 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="ViewModels\testCsv.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

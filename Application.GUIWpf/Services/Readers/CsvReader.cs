@@ -26,7 +26,7 @@ public sealed class CsvReader : ReaderBase
 
     #region Constructors
 
-    public CsvReader()
+    public CsvReader() : base()
     {
     }
 

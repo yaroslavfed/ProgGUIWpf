@@ -225,12 +225,12 @@ public class MainWindowViewModel : ViewModelBase
 
     private async void OnUploadNewFileCommandExecuted(object parameter)
     {
-        ReaderBase csvReaderBase = new CsvReader()
+        ReaderBase csvReader = new CsvReader()
         {
             FileExtension = ".csv"
         };
 
-        var result = await csvReaderBase.StartupAsync();
+        var result = await csvReader.StartupAsync();
 
         if (result != null)
             DataLocations.Add(
@@ -297,8 +297,8 @@ public class MainWindowViewModel : ViewModelBase
 
     private void OnDeletePointCommandExecuted(object parameter)
     {
-        var item = DataLocations.FirstOrDefault(i => i == SelectedFile)?.LocationsList;
-        item?.RemoveAt(item.Count - 1);
+        var item = SelectedFile.LocationsList.LastOrDefault();
+        if (item != null) SelectedFile.LocationsList.Remove(item);
     }
 
     private bool CanDeletePointCommandExecute(object parameter)
