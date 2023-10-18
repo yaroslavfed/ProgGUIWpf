@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Resources\fpmi_full.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="Pages\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>Wpf</XamlRuntime>
@@ -29,6 +33,10 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Resources\fpmi_full.png" />
   </ItemGroup>
 
 </Project>

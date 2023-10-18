@@ -1,0 +1,199 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="Button" x:Key="SystemButtonWrap">
+        <Setter Property="Background" Value="#586F8C" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="8,0,0,8">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#475D7A" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="SystemButtonReduce">
+        <Setter Property="Background" Value="#586F8C" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#475D7A" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="SystemButtonClose">
+        <Setter Property="Background" Value="#586F8C" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="0,8,8,0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#475D7A" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="DefaultButton">
+        <Setter Property="Background" Value="#7085A0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            Width="150"
+                            Height="45"
+                            CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Opacity="0.3" RenderingBias="Performance" Direction="270" ShadowDepth="2"
+                                  BlurRadius="15" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#849CBA" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Visibility" Value="Hidden" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="Button" x:Key="DefaultShortMainButton">
+        <Setter Property="Background" Value="#7085A0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            Width="120"
+                            Height="45"
+                            CornerRadius="10,0,0,10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Opacity="0.3" RenderingBias="Performance" Direction="270" ShadowDepth="2"
+                                  BlurRadius="15" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#849CBA" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="Button" x:Key="DefaultShortPlusButton">
+        <Setter Property="Background" Value="#7085A0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            Width="30"
+                            Height="45"
+                            CornerRadius="0,10,10,0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Opacity="0.3" RenderingBias="Performance" Direction="270" ShadowDepth="2"
+                                  BlurRadius="15" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#849CBA" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="Button" x:Key="ContextMenuButton">
+        <Setter Property="Background" Value="#7085A0" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#849CBA" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Visibility" Value="Hidden" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="TextOnButton">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style TargetType="Border" x:Key="MainCardStyle">
+        <Setter Property="Background" Value="#B7B6B6" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Opacity="0.3" RenderingBias="Performance" Direction="270" ShadowDepth="5"
+                                  BlurRadius="15" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Border" x:Key="BorderLine">
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    
+    <Style TargetType="Border" x:Key="FilesListItem">
+        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="Padding" Value="10,15,10,15" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Opacity="0.3" RenderingBias="Performance" Direction="270" ShadowDepth="2"
+                                  BlurRadius="15" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#E4EBF4" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
