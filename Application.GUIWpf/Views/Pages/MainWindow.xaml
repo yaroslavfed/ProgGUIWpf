@@ -98,6 +98,7 @@
                             Text="График" />
                     </Grid>
                     <Border Grid.Row="1" Background="White" Style="{StaticResource BorderLine}">
+                        <!-- TODO: вот сюда вставить график -->
                     </Border>
                 </Grid>
             </Border>
@@ -186,7 +187,6 @@
                                 HorizontalContentAlignment="Stretch">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="models:DataLocation">
-                                        <!-- TODO: перенести в отдельный юзер контрол -->
                                         <Border Style="{StaticResource FilesListItem}" Width="428" Cursor="Hand">
                                             <Grid Margin="3">
                                                 <Grid.ColumnDefinitions>
