@@ -70,6 +70,9 @@
                 </Button>
             </StackPanel>
         </Grid>
+        <Grid x:Name="grid1">
+            
+        </Grid>
         <Grid Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -98,7 +101,10 @@
                             Text="График" />
                     </Grid>
                     <Border Grid.Row="1" Background="White" Style="{StaticResource BorderLine}">
-                        <!-- TODO: вот сюда вставить график -->
+                        <Grid>
+                            <Button x:Name="Button"  Command="{Binding TempCommand}" Visibility="Hidden" Click="Button_Click"></Button>
+                            <Canvas x:Name="chart"></Canvas>
+                        </Grid>                            
                     </Border>
                 </Grid>
             </Border>
