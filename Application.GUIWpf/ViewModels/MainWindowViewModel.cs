@@ -7,12 +7,18 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Application.GUIWpf.Infrastructures.Commands;
 using Application.GUIWpf.Models;
 using Application.GUIWpf.Services.Readers;
 using Common.Base.Abstractions;
 using Common.Base.Converters;
 using Common.Base.Interfaces;
+using System.Windows.Shapes;
+using Path = System.Windows.Shapes.Path;
+using System;
+using System.Windows.Data;
+using Application.GUIWpf.Views.Pages;
 
 namespace Application.GUIWpf.ViewModels;
 
@@ -80,6 +86,8 @@ public class MainWindowViewModel : ViewModelBase
 
     #endregion
 
+    public ICommand TempCommand { get; }
+
     #region FileSystemCommands
 
     /// <summary>
@@ -124,6 +132,7 @@ public class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
+       
         #region Commands initialization
 
         CloseApplicationCommand = new Command(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
@@ -144,7 +153,18 @@ public class MainWindowViewModel : ViewModelBase
 
         DeletePointCommand = new Command(OnDeletePointCommandExecuted, CanDeletePointCommandExecute);
 
+
+
+
         #endregion
+
+        TempCommand = new Command(CopyData, CanCloseApplicationCommandExecute);
+    }
+
+
+    void CopyData(object parameter)
+    {
+        TempData.CreateTempData(DataLocations);
     }
 
     #endregion
@@ -309,4 +329,5 @@ public class MainWindowViewModel : ViewModelBase
     #endregion
 
     #endregion
+       
 }
