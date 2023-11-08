@@ -1,24 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using Application.GUIWpf.Infrastructures.Commands;
 using Application.GUIWpf.Models;
 using Application.GUIWpf.Services.Readers;
 using Common.Base.Abstractions;
 using Common.Base.Converters;
 using Common.Base.Interfaces;
-using System.Windows.Shapes;
-using Path = System.Windows.Shapes.Path;
-using System;
-using System.Windows.Data;
-using Application.GUIWpf.Views.Pages;
 
 namespace Application.GUIWpf.ViewModels;
 
